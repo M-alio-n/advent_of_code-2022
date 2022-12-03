@@ -1,12 +1,11 @@
 #region: imports
-import numpy as np
 #endregion: imported
 #region: additional functions    
 #endregion: addtional functions
 #region: load input
 file = open('day_2_inpt.txt', 'r')
 games = []
-for count, line in enumerate(file.readlines()):
+for line in file.readlines():
     games.append(line.strip())
 #endregion: input loaded
 #region: part 1
@@ -43,5 +42,8 @@ pairs = {
 score_p2 = 0
 for game in games:
     score_p2 += scores[pairs[game]]
-print(f'The final score is {score_p2}, still fine!')
+if score_p2 < score_p1:
+    print(f'The final score is {score_p2}, still fine!')
+else:
+    print(f'The final score is {score_p2}, even better!')
 #endregion: part 2
