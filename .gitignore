@@ -1,0 +1,8 @@
+*.txt
+*.code-workspace
+*.gitignore
+*.asv
+
+*
+!/**/
+!*.*
