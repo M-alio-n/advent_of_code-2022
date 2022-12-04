@@ -1,0 +1,28 @@
+#region: imports
+import numpy as np
+#endregion: imports
+#region: additional functions    
+#endregion: addtional functions
+#region: load input
+file = open('3t', 'r')
+insertion = {}
+pairings = {}
+for count, line in enumerate(file.readlines()):
+    if count == 0:
+        template = line.strip()
+        template2 = line.strip()
+    elif line == '\n':
+        continue
+    else:
+        pairings[line.strip()[0:2]] = [line.strip()[0]+line.strip()[-1], line.strip()[-1]+line.strip()[1]]
+
+#for less complex inputs:
+Data = np.loadtxt('Day_1_inpt.txt')
+#endregion: input loaded
+
+#region: part 1
+
+#endregion: part 1
+#region: part 2
+
+#endregion: part 2
