@@ -9,9 +9,9 @@ def find_full_overlap(pair):
     return 0
 
 def find_overlap(pair):
-    if int(pair[0][0]) <= int(pair[1][0]) and int(pair[0][1]) >= int(pair[1][0]):
+    if int(pair[0][0]) <= int(pair[1][0]) <= int(pair[0][1]):
         return 1
-    elif int(pair[1][0]) <= int(pair[0][0]) and int(pair[1][1]) >= int(pair[0][0]):
+    elif int(pair[1][0]) <= int(pair[0][0]) <= int(pair[1][1]):
         return 1
     return 0
 
