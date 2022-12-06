@@ -21,3 +21,10 @@ print(find_packet(input))
 #region: part 2
 print(find_message(input))
 #endregion: part 2
+
+#region: just for fun
+from device2022 import device
+A = device(input)
+print(A.find_next_marker('packet'))
+print(A.find_next_marker('message'))
+#endregion: just for fun
