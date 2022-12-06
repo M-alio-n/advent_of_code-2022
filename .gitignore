@@ -1,7 +1,6 @@
-__pycache__/*
+__pycache/
 *.txt
 *.code-workspace
-*.gitignore
 *.asv
 
 *
