@@ -45,8 +45,8 @@ class device:
             #     print(f'No more markers found.')
             return (-1,None)
 
-    def go2next_marker(self,type=None):
-        pos, type = self.find_next_marker(type)
+    def go2next_marker(self,type=None,check_length=None):
+        pos, type = self.find_next_marker(type,check_length)
         if type:
             self.pos = pos
             self.type = type
