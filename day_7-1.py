@@ -6,7 +6,6 @@ def dir_size(dir,system):
     for dirs in system[dir][1][0]:
         size_val += dir_size(dirs,system)
     return size_val
-
 #endregion: addtional functions
 #region: load input
 input = open('7').read().split('\n')

@@ -1,9 +1,9 @@
 class device:
     def __init__(self, inpt, pos = 0, type = None) -> None:
-        self.string = inpt # The program string that runs on the device
-        self.pos = pos # The current position within the string
-        self.type = type # The type of block starting at the current position
-        self.markers = { # All implemented marker types and their lengths
+        self.__string = inpt # The program string that runs on the device
+        self._pos = pos # The current position within the string
+        self._type = type # The type of block starting at the current position
+        self.__markers = { # All implemented marker types and their lengths
             'packet': 4,
             'message': 14
             }
@@ -11,23 +11,23 @@ class device:
     def find_next_marker(self,type=None,check_length=None):
         # check_length determines the maximal range to search for markers if None its up to the end of the program
         if not check_length:
-            check_length = len(self.string)-self.pos
+            check_length = len(self.__string)-self._pos
         found_idx = []
         found_type = []
         if type:
             # Types that are determined by only 'unique characters'
             if type in ['packet','message']:
-                for idx in range(self.pos+self.markers[type],self.pos+check_length+1):
-                    if len(set(self.string[idx-self.markers[type]:idx])) == self.markers[type]:
+                for idx in range(self._pos+self.__markers[type],self._pos+check_length+1):
+                    if len(set(self.__string[idx-self.__markers[type]:idx])) == self.__markers[type]:
                         #print(f'Next {type} at position {idx}.')
                         found_idx.append(idx)
                         found_type.append(type)
         else:
-            for key in self.markers:
+            for key in self.__markers:
                 # Types that are determined by only 'unique characters'
                 if key in ['packet','message']:
-                    for idx in range(self.pos+self.markers[key],self.pos+check_length+1):
-                        if len(set(self.string[idx-self.markers[key]:idx])) == self.markers[key]:
+                    for idx in range(self._pos+self.__markers[key],self._pos+check_length+1):
+                        if len(set(self.__string[idx-self.__markers[key]:idx])) == self.__markers[key]:
                             found_idx.append(idx)
                             found_type.append(key)
                             break
@@ -48,7 +48,7 @@ class device:
     def go2next_marker(self,type=None,check_length=None):
         pos, type = self.find_next_marker(type,check_length)
         if type:
-            self.pos = pos
-            self.type = type
+            self._pos = pos
+            self._type = type
         else:
-            print(f'There are no more markers behind {self.pos}. This is the end...?')
+            print(f'There are no more markers behind {self._pos}. This is the end...?')
