@@ -1,7 +1,6 @@
 #region: imports
 import numpy as np
-import time
-start = time.time()
+import copy
 #endregion: imports
 #region: additional functions
 def mov_head(head,instruction):
@@ -31,7 +30,10 @@ def move_rope(rope_len,input):
         for _ in range(int(line.split(' ')[1])):
             positions[0] = mov_head(positions[0],line.split(' ')[0])
             for idx in range(1,rope_len):
-                positions[idx] = follow(positions[idx-1],positions[idx])
+                tmp = follow(positions[idx-1],positions[idx])
+                if tmp == positions[idx]:
+                    break
+                positions[idx] = tmp
             visited.add(positions[-1])
     return len(visited)
 #endregion: addtional functions
@@ -44,4 +46,3 @@ print(move_rope(2,input))
 #region: part 2
 print(move_rope(10,input))
 #endregion: part 2
-print(time.time()-start)
