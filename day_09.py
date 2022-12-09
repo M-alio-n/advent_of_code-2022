@@ -19,29 +19,24 @@ def follow(head,tail):
     elif any(abs(head-tail)==2):
         tail += ((head-tail)/2).astype('int')
     return tail
+
+def move_rope(rope_len,input):
+    positions = np.zeros((2,rope_len),dtype=int)
+    visited = {str(positions[::,-1])}
+    for line in input:
+        for _ in range(int(line.split(' ')[1])):
+            positions[::,0] = mov_head(positions[::,0],line.split(' ')[0])
+            for idx in range(1,rope_len):
+                positions[::,idx] = follow(positions[::,idx-1],positions[::,idx])
+            visited.add(str(positions[::,-1]))
+    return len(visited)
 #endregion: addtional functions
 #region: load input
 input = open('09').read().split('\n')
 #endregion: input loaded
 #region: part 1
-positions = np.zeros((2,2),dtype=int)
-visited = {str(positions[::,-1])}
-for line in input:
-    for _ in range(int(line.split(' ')[1])):
-        positions[::,0] = mov_head(positions[::,0],line.split(' ')[0])
-        for idx in range(1,np.shape(positions)[1]):
-            positions[::,idx] = follow(positions[::,idx-1],positions[::,idx])
-        visited.add(str(positions[::,-1]))
-print(len(visited))
+print(move_rope(2,input))
 #endregion: part 1
 #region: part 2
-positions = np.zeros((2,10),dtype=int)
-visited = {str(positions[::,-1])}
-for line in input:
-    for _ in range(int(line.split(' ')[1])):
-        positions[::,0] = mov_head(positions[::,0],line.split(' ')[0])
-        for idx in range(1,np.shape(positions)[1]):
-            positions[::,idx] = follow(positions[::,idx-1],positions[::,idx])
-        visited.add(str(positions[::,-1]))
-print(len(visited))
+print(move_rope(10,input))
 #endregion: part 2
