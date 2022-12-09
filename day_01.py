@@ -4,7 +4,7 @@ import numpy as np
 #region: additional functions    
 #endregion: addtional functions
 #region: load input
-file = open('day_1_inpt.txt', 'r')
+file = open('01', 'r')
 stash_sums = np.array([])
 food = np.array([])
 for count, line in enumerate(file.readlines()):
@@ -46,7 +46,7 @@ def vstack_fill(arr1, arr2, fill=0):
     return res_array
 
 
-file = open('day_1_inpt.txt', 'r')
+file = open('01', 'r')
 stash_sums = np.array([])
 elfs = np.array([])
 food = np.array([])

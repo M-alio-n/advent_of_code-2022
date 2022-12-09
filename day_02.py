@@ -3,7 +3,7 @@
 #region: additional functions    
 #endregion: addtional functions
 #region: load input
-file = open('day_2_inpt.txt', 'r')
+file = open('02', 'r')
 games = []
 for line in file.readlines():
     games.append(line.strip())

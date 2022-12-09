@@ -17,7 +17,7 @@ def find_group_prio(groupsack):
     return prio(common)
 #endregion: addtional functions
 #region: load input
-rucksacks = open('3', 'r').read().split()
+rucksacks = open('03', 'r').read().split()
 #endregion: input loaded
 
 #region: part 1

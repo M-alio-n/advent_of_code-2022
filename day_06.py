@@ -13,7 +13,7 @@ def find_message(inpt):
     return False
 #endregion: addtional functions
 #region: load input
-input = open('6').read()
+input = open('06').read()
 #endregion: input loaded
 #region: part 1
 print(find_packet(input))

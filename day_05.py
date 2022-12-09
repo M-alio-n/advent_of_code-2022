@@ -20,7 +20,7 @@ def move_crates_2(instruction,stacks):
 stacks = []
 moves = []
 count = 1
-for l in open('5').readlines():
+for l in open('05').readlines():
     if l != '\n' and count >= 1 :
         crates = list(l)[1::4]
         if count == 1:

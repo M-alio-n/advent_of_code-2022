@@ -3,16 +3,15 @@
 #region: additional functions
 def dir_size(dir,system):
     size_val = system[dir][0]
-    for dirs in system[dir][1]:
+    for dirs in system[dir][1][0]:
         size_val += dir_size(dirs,system)
     return size_val
-
 #endregion: addtional functions
 #region: load input
-input = open('7').read().split('\n')
+input = open('07').read().split('\n')
 #endregion: input loaded
 #region: part 1
-system={'dir /':[0,[]]}
+system={'dir /':[0,[[],[]]]}
 file_sizes = {}
 curr_dir = ''
 contentflag = 0
@@ -26,10 +25,10 @@ for line in input:
         elif line[5::] == '..':
             # go down one level
             for dir in system:
-                if curr_dir in system[dir][1]:
+                if curr_dir in system[dir][1][0]:
                     curr_dir = dir
         else:
-            for dir in system[curr_dir][1]:
+            for dir in system[curr_dir][1][0]:
                 if dir.strip() == 'dir '+ line[5::]:
                     curr_dir = dir
                     break
@@ -41,10 +40,11 @@ for line in input:
             while line in system:
                 # dir exists
                 line = line + ' '
-            system[line] = [0,[]]
-            system[curr_dir][1].append(line)
+            system[line] = [0,[[],[]]]
+            system[curr_dir][1][0].append(line)
         else:
             system[curr_dir][0] += int(line.split()[0])
+            system[curr_dir][1][1].append(line)
 
 solution = 0
 for dirs in system:

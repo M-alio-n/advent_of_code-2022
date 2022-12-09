@@ -18,7 +18,7 @@ def find_overlap(pair):
 #endregion: addtional functions
 #region: load input
 pairs = []
-for l in open('4').readlines():
+for l in open('04').readlines():
     tmp = l.split(',')
     tmp2 = [a.split('-') for a in tmp]
     pairs.append(tmp2)
