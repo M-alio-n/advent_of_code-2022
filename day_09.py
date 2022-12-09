@@ -31,8 +31,8 @@ def move_rope(rope_len,input):
             positions[:,0] = mov_head(positions[:,0],line.split(' ')[0])
             for idx in range(1,rope_len):
                 tmp = follow(positions[:,idx-1],positions[:,idx])
-                if np.array_equal(tmp,positions[:,idx]):
-                    break
+                #if np.array_equal(tmp,positions[:,idx]):
+                #    break
                 positions[:,idx] = tmp
             visited.add(str(positions[:,-1]))
     return len(visited)
