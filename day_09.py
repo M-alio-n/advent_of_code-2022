@@ -22,13 +22,16 @@ def follow(head,tail):
 
 def move_rope(rope_len,input):
     positions = np.zeros((2,rope_len),dtype=int)
-    visited = {str(positions[::,-1])}
+    visited = {str(positions[:,-1])}
     for line in input:
         for _ in range(int(line.split(' ')[1])):
-            positions[::,0] = mov_head(positions[::,0],line.split(' ')[0])
+            positions[:,0] = mov_head(positions[:,0],line.split(' ')[0])
             for idx in range(1,rope_len):
-                positions[::,idx] = follow(positions[::,idx-1],positions[::,idx])
-            visited.add(str(positions[::,-1]))
+                ## IT DOES NOT WORK WITH THIS BREAK CONDITION....WHY DOES IT RETURN TRUE?!
+                #if np.array_equal(follow(positions[:,idx-1],positions[:,idx]),positions[:,idx]):
+                #    break
+                positions[:,idx] = follow(positions[:,idx-1],positions[:,idx])
+            visited.add(str(positions[:,-1]))
     return len(visited)
 #endregion: addtional functions
 #region: load input
