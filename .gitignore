@@ -4,4 +4,8 @@
 *.txt
 *.code-workspace
 *.asv
+g*.py
+g*.txt
+j*.txt
+j*.py
 __pycache__/
