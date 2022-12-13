@@ -1,7 +1,8 @@
 #region: imports
-import copy
+import time
 #endregion: imports
 #region: additional functions
+start = time.time()
 def compare(left,right):
     #flag: -1 wrong, 0 undecided, 1 right order
     flag = 0
@@ -44,41 +45,32 @@ for pair in input:
         packets.append(eval(packet))
 #endregion: input loaded
 #region: part 1
+
 result = 0
 for idx in range(int(len(packets)/2)):
     flag = compare(packets[idx*2],packets[(idx*2)+1])
     if flag == 1:
         result += idx+1
-    if flag == -1:
-        #start sorting pairs for second part
-        tmp = copy.deepcopy(packets[(idx*2)+1])
-        packets[idx*2+1] = copy.deepcopy(packets[(idx*2)])
-        packets[idx*2] = copy.deepcopy(tmp)
-print(result)
+print(f'solution 1: {result}')
+part1 = time.time()
 #endregion: part 1
 #region: part 2
 div_pack_1 = [[2]]
 div_pack_2 = [[6]]
-packets = [div_pack_1] + packets
-packets = [div_pack_2] + packets
 
-something_changed = 1
-while something_changed:
-    something_changed = 0
-    for idx in range(len(packets)-1):
-        flag = compare(packets[idx],packets[idx+1])
-        if flag == -1:
-            tmp = copy.deepcopy(packets[idx+1])
-            packets[idx+1] = copy.deepcopy(packets[idx])
-            packets[idx] = copy.deepcopy(tmp)
-            something_changed = 1
-            break
-
-result = 1
-for count,packet in enumerate(packets):
-    if packet == div_pack_1:
-        result *= count+1
-    elif packet == div_pack_2:
-        result *= count+1
-print(result)
+# how many are smaller than div_pack_1
+pos_1 = 1 # +1 because of zero-indexing
+for idx in range(len(packets)):
+    flag = compare(div_pack_1,packets[idx])
+    if flag == -1:
+        pos_1 += 1
+# how many are smaller than div_pack_2
+pos_2 = 2 # +2 because of zero-indexing and div_pack_1
+for idx in range(len(packets)):
+    flag = compare(div_pack_2,packets[idx])
+    if flag == -1:
+        pos_2 += 1
+print(f'solution 2: {pos_1*pos_2}')
+part2 = time.time()
+print(f'Total time: {part2-start}, part 1 time: {part1-start}, part 2 time: {part2-part1}')
 #endregion: part 2
