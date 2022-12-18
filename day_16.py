@@ -120,11 +120,6 @@ print(f'Solution for part 1: {best_value}')
 part1 = time.time()
 #endregion: part 1
 #region: part 2
-'''This solution does not work for the testinput, because best_combination only returns
-combinations that utilize the complete time that is available. For the optimal solution
-of the testinput both, the elephant and I, would just work 11 minutes of the 26.
-I might include these cases, though it will increase the already long runtime...
-'''
 _, combinations = all_combinations(26)
 
 combinations = sorted(combinations, key=functools.cmp_to_key(comparisson),reverse=True)
