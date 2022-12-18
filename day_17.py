@@ -99,7 +99,7 @@ def print_chamber(chamber):
     return
 #endregion: addtional functions
 #region: load input
-blast_order = open('17').read()
+blast_order = open('georg_input_17.txt').read().strip()
 #endregion: input loaded
 #region: part 1
 pattern_tracker = {}
