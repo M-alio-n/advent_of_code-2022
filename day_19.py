@@ -14,21 +14,24 @@ def play_the_game(time):
         new_games = set()
         for game in current_games:
             for robo_idx,price in enumerate(prices):
-                if all([game[1][idx] >= price[idx] for idx in range(4)]):
-
+                if robo_idx < 3 and game[0][robo_idx]==max_price[robo_idx]:
+                    continue
+                if all([game[1][idx] >= price[idx] for idx in range(3)]):
                     # purchase is allowed
                     res_game = (tuple([game[0][idx] if idx != robo_idx else game[0][idx]+1 for idx in range(4)]),
                         tuple([game[1][idx]-price[idx]+game[0][idx] for idx in range(4)]))
+                    # if this robot configuration could be reached earlier, it is now obolete
                     if not res_game[0] in robot_configs or clock == robot_configs[res_game[0]]:
                         robot_configs[res_game[0]] = clock
                         new_games.add(res_game)
                         if res_game[1][3] > max_geodes:
                             max_geodes = res_game[1][3]
+            # waiting is always allowed
             res_game = (game[0],tuple([game[0][idx]+game[1][idx] for idx in range(4)]))
             new_games.add(res_game)
             if res_game[1][3] > max_geodes:
                 max_geodes = res_game[1][3]
-        print(f'After minute {clock}, there are {len(new_games)} games and a total of {len(robot_configs)} robot configurations were realized.')
+        # print(f'After minute {clock}, there are {len(new_games)} games and a total of {len(robot_configs)} robot configurations were realized.')
         clock += 1
     # the last time step is only increasing the resources, robots won't get ready
     for game in new_games:
@@ -47,9 +50,11 @@ input = open('19').read().split('\n')
 #region: part 1
 levels = []
 for blueprint in input:
-    # All costs are noted as list of lists with prices in the order of [ore, clay, obsidian, geodes]
+    # all costs are noted as list of lists with prices in the order of [ore, clay, obsidian, geodes]
     prices = ((int(blueprint.split('costs ')[1].split(' ')[0]),0,0,0), (int(blueprint.split('costs ')[2].split(' ')[0]),0,0,0),
             (int(blueprint.split('costs ')[3].split(' ')[0]),int(blueprint.split('costs ')[3].split(' ')[3]),0,0),(int(blueprint.split('costs ')[4].split(' ')[0]),0,int(blueprint.split('costs ')[4].split(' ')[3]),0))
+    # max prices by robot resource type
+    max_price = (max([prices[idx][0] for idx in range(4)]),max([prices[idx][1] for idx in range(4)]),max([prices[idx][2] for idx in range(4)]),0)
     # keep track of the highest scored geodes
     max_geodes = 0
     # keep track of the realized robots configurations
@@ -60,20 +65,21 @@ print(f'Solution for part 1: {sum([level*(count+1) for count,level in enumerate(
 
 part1 = time.time()
 print(f'{part1-start}')
-print()
 #endregion: part 1
 #region: part 2
 solution = 1
 for blueprint in input[0:3]:
-    # All costs are noted as list of lists with prices in the order of [ore, clay, obsidian, geodes]
+    # all costs are noted as list of lists with prices in the order of [ore, clay, obsidian, geodes]
     prices = ((int(blueprint.split('costs ')[1].split(' ')[0]),0,0,0), (int(blueprint.split('costs ')[2].split(' ')[0]),0,0,0),
             (int(blueprint.split('costs ')[3].split(' ')[0]),int(blueprint.split('costs ')[3].split(' ')[3]),0,0),(int(blueprint.split('costs ')[4].split(' ')[0]),0,int(blueprint.split('costs ')[4].split(' ')[3]),0))
+    # max prices by robot resource type
+    max_price = (max([prices[idx][0] for idx in range(4)]),max([prices[idx][1] for idx in range(4)]),max([prices[idx][2] for idx in range(4)]),0)
     # keep track of the highest scored geodes
     max_geodes = 0
     # keep track of the realized robots configurations
     robot_configs = {}
     play_the_game(32)
     solution *= max_geodes
-print(f'Solution for part 1: {solution}')
+print(f'Solution for part 2: {solution}')
 print(f'{time.time()-part1}')
 #endregion: part 2
